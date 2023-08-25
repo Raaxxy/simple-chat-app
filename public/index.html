@@ -64,20 +64,34 @@
                 event.preventDefault(); // Prevent the default Enter key behavior (e.g., adding a new line)
             }
         });
-
+        // Define a dictionary of word-to-emoji pairs
+        const wordToEmoji = {
+            lol: '😂',
+            hey: '👋',
+            woah: '😮',
+            like: '❤️',
+            react: '☸',
+            congratulations: '👏'
+        };
         // Handle sending messages
         $('#send').click(() => {
             const message = $('#messageInput').val();
             socket.emit('message', message);
             $('#messageInput').val('');
-        });
+        })
 
         // Handle receiving messages
 
-        socket.on('message', (data) => {
-            const messageText = data.user ? `${data.user}: ${data.message}` : data.message;
+        socket.on('message', (data) => { 
+            let messageText = data.message;
+            Object.keys(wordToEmoji).forEach(word => {
+                const emoji = wordToEmoji[word];
+                const regex = new RegExp(`\\b${word}\\b`, 'gi'); // Match whole words only
+                messageText = messageText.replace(regex, emoji);
+            });
+            const messageWithUser = data.user ? `${data.user}: ${messageText}` : messageText;
             const messageClass = data.user === userName ? 'sent' : 'received'; // Check if the message is sent by the current user
-            $('.chat-messages').append($('<div class="message">').addClass(messageClass).text(messageText));
+            $('.chat-messages').append($('<div class="message">').addClass(messageClass).text(messageWithUser));
         });
     </script>
 </body>
