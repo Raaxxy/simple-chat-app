@@ -84,15 +84,62 @@
 
         socket.on('message', (data) => { 
             let messageText = data.message;
-            Object.keys(wordToEmoji).forEach(word => {
-                const emoji = wordToEmoji[word];
-                const regex = new RegExp(`\\b${word}\\b`, 'gi'); // Match whole words only
-                messageText = messageText.replace(regex, emoji);
-            });
+            if (messageText.startsWith('/')) {
+                handleSlashCommand(messageText);
+            } else {
+                Object.keys(wordToEmoji).forEach(word => {
+                    const emoji = wordToEmoji[word];
+                    const regex = new RegExp(`\\b${word}\\b`, 'gi'); // Match whole words only
+                    messageText = messageText.replace(regex, emoji);
+                });
             const messageWithUser = data.user ? `${data.user}: ${messageText}` : messageText;
             const messageClass = data.user === userName ? 'sent' : 'received'; // Check if the message is sent by the current user
             $('.chat-messages').append($('<div class="message">').addClass(messageClass).text(messageWithUser));
+            }
         });
+
+        function handleSlashCommand(commandText) {
+        const command = commandText.split(' ')[0].toLowerCase();
+        const args = commandText.split(' ').slice(1);
+
+        switch (command) {
+            case '/help':
+                displayHelp();
+                break;
+            case '/clear':
+                clearChat();
+                break;
+            case '/random':
+                generateRandomNumber();
+                break;    
+            default:
+                sendMessage(commandText);
+                break;
+            }
+        }
+
+        // Display help message for slash commands
+        function displayHelp() {
+            $('.chat-messages').append($('<div class="message">').text('Available slash commands:'));
+            $('.chat-messages').append($('<div class="message">').text('/help - Display this help message'));
+            $('.chat-messages').append($('<div class="message">').text('/clear - Clear the chat'));
+            $('.chat-messages').append($('<div class="message">').text('/random - Generate a random number'));    
+        }
+
+        // Clear the chat
+        function clearChat() {
+            $('.chat-messages').empty();
+        }
+        //Returns a random number
+        function generateRandomNumber() {
+            const randomNumber = Math.floor(Math.random() * 100); // Change the range as needed
+            $('.chat-messages').append($('<div class="message">').text(`Random Number: ${randomNumber}`));
+        }
+
+        // Send a message
+        function sendMessage(message) {
+            socket.emit('message', message);
+        }
     </script>
 </body>
 </html>
