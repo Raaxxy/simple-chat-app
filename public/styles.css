@@ -1,42 +1,42 @@
-/* Reset some default styles */
+
 body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    height: 100%; /* Set body and html height to 100% */
-    overflow: hidden; /* Hide overflow to prevent scrollbars */
+    height: 100%; 
+    overflow: hidden;
 }
 
-/* Make the chat container fullscreen */
+
 .chat-container {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* Style the chat header */
+
 .chat-header {
-    background-color: #1877f2; /* Facebook blue */
+    background-color: #1877f2; 
     color: #fff;
     padding: 10px;
     text-align: center;
 }
 
-/* Style the chat body */
+
 .chat-body {
-    flex-grow: 1; /* Grow to fill available space */
+    flex-grow: 1; 
     display: flex;
     flex-direction: row;
-    overflow: hidden; /* Hide overflow to prevent scrollbars */
+    overflow: hidden;
 }
 
-/* Style the chat sidebar */
+
 .chat-sidebar {
     width: 25%;
     padding: 10px;
-    background-color: #f0f2f5; /* Facebook light gray */
+    background-color: #f0f2f5; 
     min-height: 500px;
-    overflow-y: auto; /* Add scroll for user list */
+    overflow-y: auto; 
 }
 
 #online-users {
@@ -54,40 +54,40 @@ body, html {
     font-weight: bold;
 }
 
-/* Style the chat main content */
+
 .chat-main {
-    flex-grow: 1; /* Grow to fill available space */
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
 }
 
-/* Style the chat messages container */
+
 .chat-messages {
-    flex-grow: 1; /* Grow to fill available space */
+    flex-grow: 1; 
     padding: 10px;
     background-color: #fff;
-    overflow-y: auto; /* Add scroll for messages */
+    overflow-y: auto; /
 }
 
-/* Style individual chat messages */
+
 .message {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
 }
 
-/* Style sent messages with a background color similar to the chat header */
+
 .message.sent {
-    background-color: #1877f2; /* Facebook blue */
+    background-color: #1877f2; 
     color: #fff;
 }
 
-/* Style received messages with a different background color */
+
 .message.received {
-    background-color: #e4e6eb; /* Facebook message background */
+    background-color: #e4e6eb; 
 }
 
-/* Style the chat input */
+
 .chat-input {
     padding: 10px;
     background-color: #fff;
@@ -105,7 +105,7 @@ body, html {
 }
 
 .chat-input button {
-    background-color: #1877f2; /* Facebook blue */
+    background-color: #1877f2; 
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -113,7 +113,7 @@ body, html {
     cursor: pointer;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
     .chat-body {
         flex-direction: column;
